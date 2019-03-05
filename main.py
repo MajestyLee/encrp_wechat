@@ -39,7 +39,7 @@ def tuling_reply(msg):
         print(get_key(mes_list,msg['FromUserName']),ans)
     else:
         print(get_key(mes_list, msg['FromUserName']), msg[msg['Type']])
-    # print(get_key(mes_list, msg['FromUserName']), msg[msg['Type']])
+    # print(get_key(mes_list, msg['FromlUserName']), msg[msg['Type']])
     # print(mes_list.index(msg['FromUserName']),msg['User']['NickName'].encode('utf-8'),msg['User']['RemarkName'].encode('utf-8'),msg['Content'].encode('utf-8'))
 
 
