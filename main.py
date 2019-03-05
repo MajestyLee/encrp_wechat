@@ -31,10 +31,10 @@ def mes_reply(): #定义回复函数，回复是，先输入想要回复的人�
 #
 @itchat.msg_register(itchat.content.TEXT)
 def tuling_reply(msg):
-    print(msg)
+    # print(msg)
     if len(get_key(mes_list,msg['FromUserName'])) > 0 and msg['Type'] == 'Text':
-        translator1 = AlienTranslator(msg['PYQuanPin'])
-        print(msg['FromUserName'])
+        translator1 = AlienTranslator(msg['User']['PYQuanPin'])
+        print(msg['User']['PYQuanPin'])
         ans = translator1.decrypt_to_msg(msg[msg['Type']])
         print(get_key(mes_list,msg['FromUserName']),ans)
     else:
@@ -57,6 +57,7 @@ friends = itchat.get_friends(update=True)[0:]
 for f in friends[1:]:
     mes_list[f["RemarkName"]] = f["UserName"]
 code = friends[0]["PYQuanPin"]
+print(code)
 print(mes_list)
 t = threading.Thread(target=mes_reply) #开启并行线程
 t.setDaemon(True)
