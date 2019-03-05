@@ -8,24 +8,11 @@ import datetime
 # import pandas as pd
 # import numpy as np
 import threading
-KEY = '8edce3ce905a4c1dbb965e6b35c3834d'
 threads=[]
 
 def get_key (dict, value):
     return [k for k, v in dict.items() if v == value]
 
-def get_response(msg): #通过改下面的代码，也可以自动回复
-    apiUrl = 'http://www.tuling123.com/openapi/api'
-    data = {
-        'key': KEY,
-        'info': msg,
-        'userid': 'wechat-robot',
-    }
-    try:
-        r = requests.post(apiUrl, data=data).json()
-        return r.get('text')
-    except:
-        return
 
 @itchat.msg_register(itchat.content.TEXT)
 def mes_reply(): #定义回复函数，回复是，先输入想要回复的人或群的前面的标识数字，然后输入一个空格，再输入回复消息即可回复。
