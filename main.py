@@ -23,7 +23,7 @@ def mes_reply(): #定义回复函数，回复是，先输入想要回复的人�
             # i = int(mes[0])  # 获取标识
             s = mes.split("#")
             print(s)
-            translator = AlienTranslator(code)
+            translator = AlienTranslator("test")
             ans = translator.encrypt_to_code(s[1])
             itchat.send(ans, mes_list[s[0]])
         except:
@@ -33,9 +33,10 @@ def mes_reply(): #定义回复函数，回复是，先输入想要回复的人�
 def tuling_reply(msg):
     # print(msg)
     if len(get_key(mes_list,msg['FromUserName'])) > 0 and msg['Type'] == 'Text':
-        translator1 = AlienTranslator(msg['User']['PYQuanPin'])
+        translator1 = AlienTranslator("test")
         print(msg['User']['PYQuanPin'])
         ans = translator1.decrypt_to_msg(msg[msg['Type']])
+        print(ans)
         print(get_key(mes_list,msg['FromUserName']),ans)
     else:
         print(get_key(mes_list, msg['FromUserName']), msg[msg['Type']])
