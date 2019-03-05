@@ -2,11 +2,6 @@
 import requests
 import itchat
 from alien_translator import AlienTranslator
-import time
-import csv
-import datetime
-# import pandas as pd
-# import numpy as np
 import threading
 threads=[]
 
@@ -15,33 +10,36 @@ def get_key (dict, value):
 
 
 @itchat.msg_register(itchat.content.TEXT)
-def mes_reply(): #定义回复函数，回复是，先输入想要回复的人或群的前面的标识数字，然后输入一个空格，再输入回复消息即可回复。
+def mes_reply(): #定义回复函数，回复是，先输入想要回复的人，然后输入一个#，再输入回复消息即可回复。
     while(1):
         try:
-            mes = []
             mes = input()
-            # i = int(mes[0])  # 获取标识
             s = mes.split("#")
-            print(s)
-            translator = AlienTranslator("test")
+            # print(s)
+            #define the key
+            translator = AlienTranslator("as k")
+            #encrypt
             ans = translator.encrypt_to_code(s[1])
+            # print(ans)
+            #send message
             itchat.send(ans, mes_list[s[0]])
         except:
             print("error")
 #
 @itchat.msg_register(itchat.content.TEXT)
 def tuling_reply(msg):
-    # print(msg)
-    if len(get_key(mes_list,msg['FromUserName'])) > 0 and msg['Type'] == 'Text':
-        translator1 = AlienTranslator("test")
-        print(msg['User']['PYQuanPin'])
-        ans = translator1.decrypt_to_msg(msg[msg['Type']])
-        print(ans)
-        print(get_key(mes_list,msg['FromUserName']),ans)
+    if len(get_key(mes_list,msg['FromUserName'])) > 0:
+        translator1 = AlienTranslator("as k")
+        # print(msg['User']['PYQuanPin'])
+        data = msg[msg['Type']].strip("\n")
+        # print(data)
+        ans = translator1.decrypt_to_msg(data)
+        if ans:
+            print(get_key(mes_list,msg['FromUserName']),ans)
+        else:
+            print(get_key(mes_list,msg['FromUserName']),data)
     else:
         print(get_key(mes_list, msg['FromUserName']), msg[msg['Type']])
-    # print(get_key(mes_list, msg['FromlUserName']), msg[msg['Type']])
-    # print(mes_list.index(msg['FromUserName']),msg['User']['NickName'].encode('utf-8'),msg['User']['RemarkName'].encode('utf-8'),msg['Content'].encode('utf-8'))
 
 
 #
