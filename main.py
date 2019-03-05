@@ -31,14 +31,15 @@ def mes_reply(): #定义回复函数，回复是，先输入想要回复的人�
 #
 @itchat.msg_register(itchat.content.TEXT)
 def tuling_reply(msg):
-    # print(msg)
-    # if len(get_key(mes_list,msg['FromUserName'])) > 0 and msg['Type'] == 'Text':
-    #     translator1 = AlienTranslator(msg['FromUserName'])
-    #     ans = translator1.decrypt_to_msg(msg[msg['Type']])
-    #     print(get_key(mes_list,msg['FromUserName']),ans)
-    # else:
-    #     print(get_key(mes_list, msg['FromUserName']), msg[msg['Type']])
-    print(get_key(mes_list, msg['FromUserName']), msg[msg['Type']])
+    print(msg)
+    if len(get_key(mes_list,msg['FromUserName'])) > 0 and msg['Type'] == 'Text':
+        translator1 = AlienTranslator(msg['PYQuanPin'])
+        print(msg['FromUserName'])
+        ans = translator1.decrypt_to_msg(msg[msg['Type']])
+        print(get_key(mes_list,msg['FromUserName']),ans)
+    else:
+        print(get_key(mes_list, msg['FromUserName']), msg[msg['Type']])
+    # print(get_key(mes_list, msg['FromUserName']), msg[msg['Type']])
     # print(mes_list.index(msg['FromUserName']),msg['User']['NickName'].encode('utf-8'),msg['User']['RemarkName'].encode('utf-8'),msg['Content'].encode('utf-8'))
 
 
@@ -54,9 +55,8 @@ itchat.auto_login(hotReload=True)
 mes_list={}
 friends = itchat.get_friends(update=True)[0:]
 for f in friends[1:]:
-    print(f["NickName"])
     mes_list[f["RemarkName"]] = f["UserName"]
-code = friends[0]["UserName"]
+code = friends[0]["PYQuanPin"]
 print(mes_list)
 t = threading.Thread(target=mes_reply) #开启并行线程
 t.setDaemon(True)
